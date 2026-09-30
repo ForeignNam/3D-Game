@@ -21,6 +21,8 @@ namespace RPG.Control
         [SerializeField] private float stopWaypoint = 2f;
         private int currentWaypointindex = 0;
         private float defaultdistance = 1f;
+        [Range(0,1)]
+        [SerializeField] private float patrolspeedFraction = 0.2f;
         void Start()
         {
             player = GameObject.FindWithTag("Player");
@@ -78,7 +80,7 @@ namespace RPG.Control
 
             if(timeSinceEnemyArriveWayPoints > stopWaypoint)
             {
-                movers.StartMoveAction(nextWaypoint);
+                movers.StartMoveAction(nextWaypoint, patrolspeedFraction);
             }
             
         }

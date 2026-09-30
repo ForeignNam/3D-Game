@@ -54,7 +54,7 @@ namespace RPG.Control
                   if (Input.GetMouseButton(0))
                   {
                       GetComponent<Fighter>().Cancel();
-                      movers.MoveTo(hit.point);
+                      movers.MoveTo(hit.point, 1f);
                   }
                 
                 return true;
