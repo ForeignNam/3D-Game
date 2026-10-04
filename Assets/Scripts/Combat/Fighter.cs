@@ -12,10 +12,12 @@ namespace RPG.Combat
         Health target;
         private float timeSinceLastAttack = Mathf.Infinity;
         private ActionSchedule actionSchedule;
+        private Movers movers;
         private Animator anim;
         private void Awake()
         {
             actionSchedule = GetComponent<ActionSchedule>();
+            movers = GetComponent<Movers>();
             anim = GetComponent<Animator>();
         }
         private void Update()
@@ -71,6 +73,7 @@ namespace RPG.Combat
         public void Cancel()
         {
             StopAttack();
+            movers.Cancel();
             target = null;
         }
 

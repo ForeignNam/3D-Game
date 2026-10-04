@@ -131,6 +131,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4838342656425466476, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8781175747330416881}
+    - targetCorrespondingSourceObject: {fileID: 4838342656425466476, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4721978173114092471}
   m_SourcePrefab: {fileID: 100100000, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
 --- !u!4 &1134816804536937143 stripped
 Transform:
@@ -167,3 +170,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.::RPG.Combat.Health
   healthPoint: 100
+--- !u!136 &4721978173114092471
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534986440335402475}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
