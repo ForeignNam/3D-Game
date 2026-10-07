@@ -1,7 +1,8 @@
 using UnityEngine;
+using RPG.Saving;
  namespace RPG.Core
  {   
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviour, ISaveable
     {
         private Animator anim;
         private bool isdead = false;
@@ -29,6 +30,16 @@ using UnityEngine;
         isdead = true;
         anim.SetTrigger("die");
         actionSchedule.CancelCurrentAction();
+        }
+
+        public object CaptureState()
+        {
+            return healthPoint;
+        }
+        public void RestoreState(object state)
+        {
+            healthPoint = (float)state;
+            if(healthPoint == 0) Death();
         }
     }
 }

@@ -14,11 +14,20 @@ namespace RPG.Combat
         private ActionSchedule actionSchedule;
         private Movers movers;
         private Animator anim;
+         
+        [SerializeField] private GameObject swordPrefab = null;
+        [SerializeField] private Transform rightHandTransform= null;
+        [SerializeField] private AnimatorOverrideController swordaction = null;
         private void Awake()
         {
             actionSchedule = GetComponent<ActionSchedule>();
             movers = GetComponent<Movers>();
             anim = GetComponent<Animator>();
+        }
+
+        private void Start()
+        {
+            SpawnSword();
         }
         private void Update()
         {
@@ -36,6 +45,13 @@ namespace RPG.Combat
                 AttackBehaviour();
             }
 
+        }
+        private void SpawnSword()
+        {
+            if (swordPrefab == null) return;
+
+            Instantiate(swordPrefab, rightHandTransform);
+            anim.runtimeAnimatorController = swordaction;
         }
         private void AttackBehaviour()
         {

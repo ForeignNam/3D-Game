@@ -66,6 +66,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 435482, guid: 679ff741e12a7e740819ede24a7000b7, type: 3}
   m_PrefabInstance: {fileID: 1007879439810596943}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1007879439810533835 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 461188, guid: 679ff741e12a7e740819ede24a7000b7, type: 3}
+  m_PrefabInstance: {fileID: 1007879439810596943}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9064265150352834439
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74,6 +79,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8634482120840086842, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
+      propertyPath: swordPrefab
+      value: 
+      objectReference: {fileID: 7083773476601542343, guid: 7d58f6a6a4f144c80b6cca9ed17ef250, type: 3}
+    - target: {fileID: -8634482120840086842, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
+      propertyPath: swordaction
+      value: 
+      objectReference: {fileID: 22100000, guid: b12805c0635b94e7ba1b3d01a9d81a7e, type: 2}
+    - target: {fileID: -8634482120840086842, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
+      propertyPath: rightHandTransform
+      value: 
+      objectReference: {fileID: 1007879439810533835}
     - target: {fileID: 4838342656425466476, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
       propertyPath: m_Name
       value: Players
@@ -134,6 +151,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4838342656425466476, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4721978173114092471}
+    - targetCorrespondingSourceObject: {fileID: 4838342656425466476, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5699809671264281612}
   m_SourcePrefab: {fileID: 100100000, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
 --- !u!4 &1134816804536937143 stripped
 Transform:
@@ -193,3 +213,16 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-5699809671264281612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534986440335402475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.::RPG.Saving.SaveableEntity
+  uniqueIdentifier: 0d14589a-4e2e-46b8-9621-19b6a46ead51
