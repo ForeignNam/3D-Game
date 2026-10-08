@@ -1,23 +1,24 @@
 using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
-using RPG.Combat;
 namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction
     {
 
-        [SerializeField] float weaponRange = 2f;
+
         [SerializeField] float timebetweenattacks = 2f;
         Health target;
         private float timeSinceLastAttack = Mathf.Infinity;
         private ActionSchedule actionSchedule;
         private Movers movers;
         private Animator anim;
-         
-        [SerializeField] private GameObject swordPrefab = null;
-        [SerializeField] private Transform rightHandTransform= null;
-        [SerializeField] private AnimatorOverrideController swordaction = null;
+
+        [SerializeField] private Weapon defaultweapon = null;
+        [SerializeField] private Transform rightHandTransform = null;
+        [SerializeField] private Transform leftHandTransform = null;
+
+
         private void Awake()
         {
             actionSchedule = GetComponent<ActionSchedule>();
@@ -27,14 +28,14 @@ namespace RPG.Combat
 
         private void Start()
         {
-            SpawnSword();
+            EquipWeapon(defaultweapon);
         }
         private void Update()
         {
             timeSinceLastAttack += Time.deltaTime;
             if (target == null) return;
             if (target.Dead()) return;
-            bool targetinrange = Vector3.Distance(transform.position, target.transform.position) < weaponRange;
+            bool targetinrange = Vector3.Distance(transform.position, target.transform.position) < defaultweapon.GetWeaponRange();
             if (target != null && !targetinrange)
             {
                 GetComponent<Movers>().MoveTo(target.transform.position, 1f);
@@ -46,12 +47,10 @@ namespace RPG.Combat
             }
 
         }
-        private void SpawnSword()
+        public void EquipWeapon(Weapon currentWeapon)
         {
-            if (swordPrefab == null) return;
-
-            Instantiate(swordPrefab, rightHandTransform);
-            anim.runtimeAnimatorController = swordaction;
+            if (currentWeapon == null) return;
+            currentWeapon.Spawn(rightHandTransform, leftHandTransform, anim);
         }
         private void AttackBehaviour()
         {
@@ -76,8 +75,8 @@ namespace RPG.Combat
         }
         public void Hit()
         {
-            if(target==null) return;
-            target.TakeDamage(10f);
+            if (target == null) return;
+            target.TakeDamage(defaultweapon.GetWeaponDamage());
         }
 
         public void Attack(GameObject combattarget)
@@ -97,7 +96,7 @@ namespace RPG.Combat
         {
             anim.ResetTrigger("attack");
             anim.SetTrigger("stopAttack");
-            
+
         }
     }
 }
