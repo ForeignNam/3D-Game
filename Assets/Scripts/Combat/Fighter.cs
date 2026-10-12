@@ -75,10 +75,23 @@ namespace RPG.Combat
         }
         public void Hit()
         {
-            if (target == null) return;
-            target.TakeDamage(defaultweapon.GetWeaponDamage());
-        }
 
+            if (target == null) return;
+            if (defaultweapon.HasProjectile())
+            {     
+                defaultweapon.LaunchProjectile(rightHandTransform, leftHandTransform, target);
+            }
+            else
+            {
+                target.TakeDamage(defaultweapon.GetWeaponDamage());
+            }
+
+        }
+        void Shoot()
+        {
+           
+            Hit();
+        }
         public void Attack(GameObject combattarget)
         {
             actionSchedule.StartAction(this);

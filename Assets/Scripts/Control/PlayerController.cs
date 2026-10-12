@@ -29,14 +29,30 @@ namespace RPG.Control
         {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
+            if(Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Click detected, hits count: " + hits.Length);
+            }
+
             foreach(RaycastHit hit in hits)
             {
-                CombatTarget target = hit.collider.GetComponent<CombatTarget>();
-                if(target == null) continue;
+                CombatTarget target = hit.collider.GetComponentInParent<CombatTarget>();
+                if(target == null)
+                {
+                    if(Input.GetMouseButtonDown(0))
+                        Debug.Log("Hit object without CombatTarget: " + hit.collider.gameObject.name);
+                    continue;
+                }
                 
-                if(!fighter.CanAttack(target.gameObject)) continue;
+                if(!fighter.CanAttack(target.gameObject))
+                {
+                    if(Input.GetMouseButtonDown(0))
+                        Debug.Log("Cannot attack: " + target.gameObject.name);
+                    continue;
+                }
                 if(Input.GetMouseButtonDown(0))
                 {
+                    Debug.Log("Attacking: " + target.gameObject.name);
                     fighter.Attack(target.gameObject);
                 }
                 return true;
