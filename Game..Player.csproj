@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Cinematics\CinematicControllRemover.cs" />
+    <Compile Include="Assets\Scripts\Combat\Projectile.cs" />
     <Compile Include="Assets\Scripts\Saving\ISaveable.cs" />
     <Compile Include="Assets\Scripts\Cinematics\CinematicTrigger.cs" />
     <Compile Include="Assets\Scripts\Combat\Weapon.cs" />
@@ -78,7 +79,6 @@
     <Compile Include="Assets\Scripts\SceneManagement\SavingWapper.cs" />
     <Compile Include="Assets\Scripts\Saving\SerializableVector3.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\Portal.cs" />
-    <Compile Include="Assets\Scripts\Combat\Projectiles.cs" />
     <Compile Include="Assets\Scripts\Saving\SavingSystem.cs" />
     <Compile Include="Assets\Scripts\Combat\CombatTarget.cs" />
     <Compile Include="Assets\Scripts\Core\Health.cs" />
