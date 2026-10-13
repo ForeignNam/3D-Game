@@ -5,9 +5,12 @@ namespace RPG.Combat
     public class Projectile : MonoBehaviour
     {
         Health target;
+        
         [SerializeField] private float speed;
+        [SerializeField] GameObject impactFX;
+        
         [SerializeField] private float damage;
-
+        [SerializeField] private bool isHoming = false ;
         private void Awake()
         {
             Rigidbody projectileRigidbody = GetComponent<Rigidbody>();
@@ -20,14 +23,21 @@ namespace RPG.Combat
             projectileRigidbody.isKinematic = true;
             projectileRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         }
-
+        private void Start()
+        {
+            transform.LookAt(GetlocationTarget());
+        }
 
         // Update is called once per frame
         void Update()
         {
             if (target != null)
             {
-                transform.LookAt(GetlocationTarget());
+                if(isHoming && !target.Dead())
+                {
+                     transform.LookAt(GetlocationTarget());
+                }
+               
                 transform.Translate(Vector3.forward * speed * Time.deltaTime);
             }
         }
@@ -43,9 +53,17 @@ namespace RPG.Combat
         {
             Health hitHealth = other.GetComponentInParent<Health>();
             if (hitHealth == null || hitHealth != target) return;
-
+            if(target.Dead()) return;   
+            if (impactFX != null)
+            {
+                GameObject impactInstance = Instantiate(impactFX, GetlocationTarget(), Quaternion.identity);
+                if (impactInstance.GetComponent<Destroybullet>() == null)
+                {
+                    impactInstance.AddComponent<Destroybullet>();
+                }
+            }
             hitHealth.TakeDamage(damage);
-            Destroy(gameObject);
+            Destroy(gameObject); 
         }
 
         private Vector3 GetlocationTarget()

@@ -24,7 +24,7 @@ using RPG.Saving;
            
         }
 
-        private void Death()
+        public void Death()
         {
         if(isdead) return;
         isdead = true;

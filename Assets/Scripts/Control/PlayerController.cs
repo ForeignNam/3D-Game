@@ -31,7 +31,7 @@ namespace RPG.Control
 
             if(Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Click detected, hits count: " + hits.Length);
+                //Debug.Log("Click detected, hits count: " + hits.Length);
             }
 
             foreach(RaycastHit hit in hits)
@@ -40,19 +40,19 @@ namespace RPG.Control
                 if(target == null)
                 {
                     if(Input.GetMouseButtonDown(0))
-                        Debug.Log("Hit object without CombatTarget: " + hit.collider.gameObject.name);
+                        //Debug.Log("Hit object without CombatTarget: " + hit.collider.gameObject.name);
                     continue;
                 }
                 
                 if(!fighter.CanAttack(target.gameObject))
                 {
                     if(Input.GetMouseButtonDown(0))
-                        Debug.Log("Cannot attack: " + target.gameObject.name);
+                        //Debug.Log("Cannot attack: " + target.gameObject.name);
                     continue;
                 }
                 if(Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log("Attacking: " + target.gameObject.name);
+                    //Debug.Log("Attacking: " + target.gameObject.name);
                     fighter.Attack(target.gameObject);
                 }
                 return true;

@@ -11,13 +11,16 @@ namespace RPG.Combat
         [SerializeField] private AnimatorOverrideController weaponanimation = null;
         [SerializeField] private bool isRightHand = true;
         [SerializeField] private Projectile projectile = null;
+        private const string WEAPON = "Weapon";
 
         public void Spawn(Transform rightHandTransform, Transform leftHandTransform, Animator animator)
         {
+             DestroyOldWeapon(rightHandTransform,leftHandTransform);
             Transform handTransform = GetTransform(rightHandTransform, leftHandTransform);
             if (weaponPrefab != null)
             {
-                Instantiate(weaponPrefab, handTransform);
+                GameObject weapon = Instantiate(weaponPrefab, handTransform);
+                weapon.name = WEAPON;
             }
 
             if (weaponanimation != null)
@@ -25,6 +28,18 @@ namespace RPG.Combat
                 animator.runtimeAnimatorController = weaponanimation;
             }
 
+        }
+
+        private void DestroyOldWeapon(Transform rightHand, Transform leftHand)
+        {
+            Transform oldWeapon = rightHand.Find(WEAPON);
+            if(oldWeapon==null) oldWeapon = leftHand.Find(WEAPON);
+            if(oldWeapon==null) return;
+
+            oldWeapon.name = "Destroying";
+            Destroy(oldWeapon.gameObject);
+            
+            
         }
         public bool HasProjectile()
         {

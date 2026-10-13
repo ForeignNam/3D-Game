@@ -50,6 +50,7 @@ namespace RPG.Combat
         public void EquipWeapon(Weapon currentWeapon)
         {
             if (currentWeapon == null) return;
+          defaultweapon = currentWeapon;
             currentWeapon.Spawn(rightHandTransform, leftHandTransform, anim);
         }
         private void AttackBehaviour()
