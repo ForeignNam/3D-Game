@@ -8,10 +8,12 @@ using RPG.Stats;
         private Animator anim;
         private bool isdead = false;
         private ActionSchedule actionSchedule;
+        private BaseStats baseStats;
         private void Awake()
         {
             anim = GetComponent<Animator>();
             actionSchedule = GetComponent<ActionSchedule>();
+            baseStats = GetComponent<BaseStats>();
         }
         public bool Dead()
         {
@@ -26,7 +28,7 @@ using RPG.Stats;
         [SerializeField] float healthPoint = 100f;
         private void Start()
         {
-            healthPoint = GetComponent<BaseStats>().GetHealth();
+            healthPoint = baseStats.GetHealth();
         }
         public void TakeDamage(float damage)
         {
