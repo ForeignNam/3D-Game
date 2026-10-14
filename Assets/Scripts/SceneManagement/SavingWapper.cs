@@ -1,35 +1,48 @@
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using RPG.Saving;
+
 namespace RPG.SceneManagement
 {
-public class SavingWapper : MonoBehaviour
-{
-    private const string defaultSaveFile = "save";
-   private SavingSystem savingSystem;
-   private void Awake()
-   {
-    savingSystem = GetComponent<SavingSystem>();
-   }
-    // Update is called once per frame
-    void Update()
+    public class SavingWapper : MonoBehaviour
     {
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            Load();
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            Save();
-        }
-    }
+        private const string DefaultSaveFile = "save";
+        private SavingSystem savingSystem;
 
-    public void Save()
-    {
-        savingSystem.Save(defaultSaveFile);
-    }
-    public void Load()
-    {
-        savingSystem.Load(defaultSaveFile);
-    }
+        private void Awake()
+        {
+            savingSystem = GetComponent<SavingSystem>();
+        }
+
+        private async void Update()
+        {
+            try
+            {
+                if (Input.GetKeyDown(KeyCode.L))
+                {
+                    await LoadAsync();
+                }
+
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    await SaveAsync();
+                }
+            }
+            catch (Exception exception)
+            {
+                Debug.LogException(exception, this);
+            }
+        }
+
+        public Task SaveAsync()
+        {
+            return savingSystem.SaveAsync(DefaultSaveFile);
+        }
+
+        public Task LoadAsync()
+        {
+            return savingSystem.LoadAsync(DefaultSaveFile);
+        }
     }
 }

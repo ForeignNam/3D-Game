@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -8634482120840086842}
   - component: {fileID: 241198312130573364}
   - component: {fileID: -6202004393752124550}
+  - component: {fileID: 6546919516041687534}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -121,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Movers
   target: {fileID: 0}
+  maxSpeed: 6
 --- !u!114 &-8634482120840086842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,8 +135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec474532ad26440d94bfd47956d0f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RPG.Combat.Fighter
-  weaponRange: 2
   timebetweenattacks: 2
+  defaultweapon: {fileID: 0}
+  rightHandTransform: {fileID: 0}
+  leftHandTransform: {fileID: 0}
 --- !u!114 &241198312130573364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,3 +173,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6546919516041687534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4838342656425466476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43af2207656ba4cd9b08290e980ce8ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.::BaseStats
+  startinglevel: 1
+  characterClass: 0

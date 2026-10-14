@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine.AI;
 namespace RPG.SceneManagement
 {
@@ -18,6 +19,7 @@ namespace RPG.SceneManagement
         [SerializeField] private float fadeOutTime = 3f;
         [SerializeField] private float fadeInTime = 3f;
         [SerializeField] private float fadeWaitTime = 1f;
+        [SerializeField] private float navMeshSearchDistance = 10f;
         private bool isTransitioning;
         private SavingWapper savingWrappe;
              
@@ -50,7 +52,7 @@ namespace RPG.SceneManagement
             savingWrappe = FindFirstObjectByType<SavingWapper>();
             if (savingWrappe != null)
             {
-                savingWrappe.Save();
+                yield return WaitForTask(savingWrappe.SaveAsync());
             }
             else
             {
@@ -61,13 +63,16 @@ namespace RPG.SceneManagement
 
             if (savingWrappe != null)
             {
-                savingWrappe.Load();
+                yield return WaitForTask(savingWrappe.LoadAsync());
             }
 
             Portal otherPortal = GetOtherPortal();
             if (otherPortal != null)
             {
-                UpdatePlayer(otherPortal);
+                if (UpdatePlayer(otherPortal) && savingWrappe != null)
+                {
+                    yield return WaitForTask(savingWrappe.SaveAsync());
+                }
             }
             else
             {
@@ -83,38 +88,68 @@ namespace RPG.SceneManagement
 
             Destroy(gameObject); 
         }
-        private void UpdatePlayer(Portal otherPortal)
+
+        private IEnumerator WaitForTask(Task task)
+        {
+            while (!task.IsCompleted)
+            {
+                yield return null;
+            }
+
+            if (task.IsFaulted)
+            {
+                Debug.LogException(task.Exception, this);
+            }
+        }
+
+        private bool UpdatePlayer(Portal otherPortal)
         {
             GameObject player = GameObject.FindWithTag("Player");
             if (player == null)
             {
                 Debug.LogWarning("No GameObject tagged 'Player' was found in the destination scene.", this);
-                return;
+                return false;
             }
 
             if (otherPortal.spawnPoints == null)
             {
                 Debug.LogWarning($"Destination portal '{otherPortal.name}' has no spawn point assigned.", otherPortal);
-                return;
+                return false;
             }
 
             Vector3 destination = otherPortal.spawnPoints.position;
-            if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
+            int areaMask = agent != null ? agent.areaMask : NavMesh.AllAreas;
+            if (!NavMesh.SamplePosition(
+                destination,
+                out NavMeshHit hit,
+                navMeshSearchDistance,
+                areaMask))
             {
-                destination = hit.position;
+                Debug.LogWarning(
+                    $"No NavMesh was found within {navMeshSearchDistance}m of " +
+                    $"spawn point '{otherPortal.spawnPoints.name}'.",
+                    otherPortal.spawnPoints);
+                return false;
             }
 
-            NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
+            destination = hit.position;
             if (agent != null)
             {
-                agent.Warp(destination);
-            }
-            else
-            {
-                player.transform.position = destination;
+                agent.enabled = false;
             }
 
-            player.transform.rotation = otherPortal.spawnPoints.rotation;
+            player.transform.SetPositionAndRotation(
+                destination,
+                otherPortal.spawnPoints.rotation);
+
+            if (agent != null)
+            {
+                agent.enabled = true;
+                agent.ResetPath();
+            }
+
+            return true;
         }
         private Portal GetOtherPortal() 
         {

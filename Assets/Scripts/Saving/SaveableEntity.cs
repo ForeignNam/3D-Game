@@ -1,83 +1,86 @@
-using System;
 using System.Collections.Generic;
-using RPG.Core;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace RPG.Saving
 {
     [ExecuteAlways]
     public class SaveableEntity : MonoBehaviour
     {
-        [SerializeField] string uniqueIdentifier = "";
-        static Dictionary<string, SaveableEntity> globalLookup = new Dictionary<string, SaveableEntity>();
+        [SerializeField] private string uniqueIdentifier = "";
+
+        private static readonly HashSet<SaveableEntity> Registry =
+            new HashSet<SaveableEntity>();
+
+        public static IReadOnlyCollection<SaveableEntity> RegisteredEntities => Registry;
 
         public string GetUniqueIdentifier()
         {
             return uniqueIdentifier;
         }
 
-        public object CaptureState()
+        private void OnEnable()
         {
-            Dictionary<string, object> state = new Dictionary<string, object>();
-            foreach (ISaveable saveable in GetComponents<ISaveable>())
+            if (Application.isPlaying)
             {
-                state[saveable.GetType().ToString()] = saveable.CaptureState();
+                Registry.Add(this);
             }
-            return state;
         }
 
-        public void RestoreState(object state)
+        private void OnDisable()
         {
-            Dictionary<string, object> stateDict = (Dictionary<string, object>)state;
-            foreach (ISaveable saveable in GetComponents<ISaveable>())
-            {
-                string typeString = saveable.GetType().ToString();
-                if (stateDict.ContainsKey(typeString))
-                {
-                    saveable.RestoreState(stateDict[typeString]);
-                }
-            }
+            Registry.Remove(this);
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetRegistry()
+        {
+            Registry.Clear();
         }
 
 #if UNITY_EDITOR
-        private void Update() {
+        private static readonly Dictionary<string, SaveableEntity> GlobalLookup =
+            new Dictionary<string, SaveableEntity>();
+
+        private void Update()
+        {
             if (Application.IsPlaying(gameObject)) return;
             if (string.IsNullOrEmpty(gameObject.scene.path)) return;
 
             SerializedObject serializedObject = new SerializedObject(this);
             SerializedProperty property = serializedObject.FindProperty("uniqueIdentifier");
-            
+
             if (string.IsNullOrEmpty(property.stringValue) || !IsUnique(property.stringValue))
             {
                 property.stringValue = System.Guid.NewGuid().ToString();
                 serializedObject.ApplyModifiedProperties();
             }
 
-            globalLookup[property.stringValue] = this;
+            GlobalLookup[property.stringValue] = this;
         }
-#endif
 
         private bool IsUnique(string candidate)
         {
-            if (!globalLookup.ContainsKey(candidate)) return true;
+            if (!GlobalLookup.ContainsKey(candidate)) return true;
+            if (GlobalLookup[candidate] == this) return true;
 
-            if (globalLookup[candidate] == this) return true;
-
-            if (globalLookup[candidate] == null)
+            if (GlobalLookup[candidate] == null)
             {
-                globalLookup.Remove(candidate);
+                GlobalLookup.Remove(candidate);
                 return true;
             }
 
-            if (globalLookup[candidate].GetUniqueIdentifier() != candidate)
+            if (GlobalLookup[candidate].GetUniqueIdentifier() != candidate)
             {
-                globalLookup.Remove(candidate);
+                GlobalLookup.Remove(candidate);
                 return true;
             }
 
             return false;
         }
+#endif
     }
 }

@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using RPG.Movement;
 using RPG.Core;
+using RPG.Saving;
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction
+    public class Fighter : MonoBehaviour, IAction, ISaveable
     {
 
 
@@ -14,10 +16,10 @@ namespace RPG.Combat
         private Movers movers;
         private Animator anim;
 
+        [FormerlySerializedAs("weapon")]
         [SerializeField] private Weapon defaultweapon = null;
         [SerializeField] private Transform rightHandTransform = null;
         [SerializeField] private Transform leftHandTransform = null;
-
 
         private void Awake()
         {
@@ -49,9 +51,36 @@ namespace RPG.Combat
         }
         public void EquipWeapon(Weapon currentWeapon)
         {
-            if (currentWeapon == null) return;
-          defaultweapon = currentWeapon;
+            if (currentWeapon == null)
+            {
+                Debug.LogWarning($"{name} does not have a weapon to equip.", this);
+                return;
+            }
+
+            defaultweapon = currentWeapon;
             currentWeapon.Spawn(rightHandTransform, leftHandTransform, anim);
+        }
+
+        public object CaptureState()
+        {
+            return defaultweapon != null ? defaultweapon.name : string.Empty;
+        }
+
+        public void RestoreState(object state)
+        {
+            string weaponName = state as string;
+            if (string.IsNullOrWhiteSpace(weaponName)) return;
+
+            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            if (weapon == null)
+            {
+                Debug.LogWarning(
+                    $"Could not restore weapon '{weaponName}' from a Resources folder.",
+                    this);
+                return;
+            }
+
+            EquipWeapon(weapon);
         }
         private void AttackBehaviour()
         {
@@ -79,7 +108,7 @@ namespace RPG.Combat
 
             if (target == null) return;
             if (defaultweapon.HasProjectile())
-            {     
+            {
                 defaultweapon.LaunchProjectile(rightHandTransform, leftHandTransform, target);
             }
             else
@@ -90,7 +119,7 @@ namespace RPG.Combat
         }
         void Shoot()
         {
-           
+
             Hit();
         }
         public void Attack(GameObject combattarget)
