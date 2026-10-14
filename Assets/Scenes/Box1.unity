@@ -1602,6 +1602,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1545862983420934833, guid: 90ca5106f1381472c984e6f9d0e28192, type: 3}
+      propertyPath: progression
+      value: 
+      objectReference: {fileID: 11400000, guid: 92a8bfc34474d44d19f3a4fc8f1a9478, type: 2}
     - target: {fileID: 2197158789898491191, guid: 90ca5106f1381472c984e6f9d0e28192, type: 3}
       propertyPath: maxSpeed
       value: 5
@@ -2701,6 +2705,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1545862983420934833, guid: 90ca5106f1381472c984e6f9d0e28192, type: 3}
+      propertyPath: progression
+      value: 
+      objectReference: {fileID: 11400000, guid: 92a8bfc34474d44d19f3a4fc8f1a9478, type: 2}
     - target: {fileID: 2349102337932739266, guid: 90ca5106f1381472c984e6f9d0e28192, type: 3}
       propertyPath: patrolPath
       value: 
@@ -3162,6 +3170,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1545862983420934833, guid: 90ca5106f1381472c984e6f9d0e28192, type: 3}
+      propertyPath: progression
+      value: 
+      objectReference: {fileID: 11400000, guid: 92a8bfc34474d44d19f3a4fc8f1a9478, type: 2}
     - target: {fileID: 2349102337932739266, guid: 90ca5106f1381472c984e6f9d0e28192, type: 3}
       propertyPath: patrolPath
       value: 
@@ -4146,6 +4158,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Archer
       objectReference: {fileID: 0}
+    - target: {fileID: 4119298982580484186, guid: 5d8df54197d8de046ac9551b88f82c57, type: 3}
+      propertyPath: progression
+      value: 
+      objectReference: {fileID: 11400000, guid: 92a8bfc34474d44d19f3a4fc8f1a9478, type: 2}
+    - target: {fileID: 4119298982580484186, guid: 5d8df54197d8de046ac9551b88f82c57, type: 3}
+      propertyPath: characterClass
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7772593139192673138, guid: 5d8df54197d8de046ac9551b88f82c57, type: 3}
       propertyPath: defaultweapon
       value: 
@@ -4365,6 +4385,10 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: 4e16f4d3-6e7f-4c83-b452-85876c941c24
       objectReference: {fileID: 0}
+    - target: {fileID: 1823855976858011681, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
+      propertyPath: progression
+      value: 
+      objectReference: {fileID: 11400000, guid: 92a8bfc34474d44d19f3a4fc8f1a9478, type: 2}
     - target: {fileID: 2416443104761519486, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
       propertyPath: m_Name
       value: Core

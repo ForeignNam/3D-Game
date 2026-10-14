@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Cinematics\CinematicTrigger.cs" />
     <Compile Include="Assets\Scripts\Combat\Weapon.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\Fade.cs" />
+    <Compile Include="Assets\Scripts\Stats\Progression.cs" />
     <Compile Include="Assets\Scripts\Movement\Movers.cs" />
     <Compile Include="Assets\Scripts\Core\PersistentObjectSpawner.cs" />
     <Compile Include="Assets\Scripts\Combat\Pickup.cs" />
@@ -77,11 +78,16 @@
     <Compile Include="Assets\Scripts\Saving\SaveableEntity.cs" />
     <Compile Include="Assets\Scripts\Core\ActionSchedule.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\SavingWapper.cs" />
+    <Compile Include="Assets\Scripts\Attributes\DisplayHealth.cs" />
     <Compile Include="Assets\Scripts\Saving\SerializableVector3.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\Portal.cs" />
     <Compile Include="Assets\Scripts\Saving\SavingSystem.cs" />
     <Compile Include="Assets\Scripts\Combat\CombatTarget.cs" />
+    <Compile Include="Assets\Scripts\Stats\BaseStats.cs" />
+    <Compile Include="Assets\Scripts\Core\Destroybullet.cs" />
+    <Compile Include="Assets\Scripts\Combat\DisplayEnemyHealth.cs" />
     <Compile Include="Assets\Scripts\Core\Health.cs" />
+    <Compile Include="Assets\Scripts\Stats\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\Control\AIController.cs" />
     <Compile Include="Assets\Scripts\Core\IAction.cs" />
   </ItemGroup>
@@ -1199,6 +1205,10 @@
     </Reference>
     <Reference Include="System.Xml.Serialization">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.3.10f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor.UI">

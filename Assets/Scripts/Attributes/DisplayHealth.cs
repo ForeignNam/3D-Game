@@ -7,12 +7,12 @@ namespace RPG.Attributes
     [RequireComponent(typeof(TMP_Text))]
     public class DisplayHealth : MonoBehaviour
     {
-         private TMP_Text healthText;
+         private TMP_Text healthplayerText;
         private Health playerHealth;
 
         private void Awake()
         {
-            healthText = GetComponent<TMP_Text>();
+            healthplayerText = GetComponent<TMP_Text>();
         }
 
         private void Start()
@@ -28,7 +28,7 @@ namespace RPG.Attributes
 
         private void Update()
         {
-            healthText.text = Mathf.CeilToInt(playerHealth.GetHealthPoints()).ToString();
+            healthplayerText.text = Mathf.CeilToInt(playerHealth.GetHealthPoints()).ToString();
         }
     }
 }

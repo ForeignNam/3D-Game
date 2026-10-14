@@ -7,8 +7,8 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction, ISaveable
     {
-
-
+        
+        
         [SerializeField] float timebetweenattacks = 2f;
         Health target;
         private float timeSinceLastAttack = Mathf.Infinity;
@@ -65,7 +65,10 @@ namespace RPG.Combat
         {
             return defaultweapon != null ? defaultweapon.name : string.Empty;
         }
-
+        public Health GetTarget()
+        {
+            return target;
+        }
         public void RestoreState(object state)
         {
             string weaponName = state as string;
