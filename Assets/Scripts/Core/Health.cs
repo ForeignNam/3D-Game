@@ -1,6 +1,7 @@
 using UnityEngine;
 using RPG.Saving;
 using RPG.Stats;
+using RPG.Attributes;
  namespace RPG.Core
  {   
     public class Health : MonoBehaviour, ISaveable
@@ -28,13 +29,28 @@ using RPG.Stats;
         [SerializeField] float healthPoint = 100f;
         private void Start()
         {
-            healthPoint = baseStats.GetHealth();
+            healthPoint = baseStats.GetStat(Stat.health);
         }
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, GameObject Integator)
         {
             healthPoint = Mathf.Max(healthPoint - damage,0);
-            if(healthPoint == 0) Death();
+            if(healthPoint == 0)
+            {
+                Debug.Log("run");
+                Death();
+                AwardExperience(Integator);
+            } 
+
            
+        }
+        private void AwardExperience(GameObject integator)
+        {
+            Experience experience = integator.GetComponent<Experience>();
+            if(experience != null)
+            {
+                
+                experience.GainExperience(baseStats.GetStat(Stat.experience));
+            }
         }
 
         public void Death()

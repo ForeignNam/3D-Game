@@ -112,11 +112,11 @@ namespace RPG.Combat
             if (target == null) return;
             if (defaultweapon.HasProjectile())
             {
-                defaultweapon.LaunchProjectile(rightHandTransform, leftHandTransform, target);
+                defaultweapon.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject);
             }
             else
             {
-                target.TakeDamage(defaultweapon.GetWeaponDamage());
+                target.TakeDamage(defaultweapon.GetWeaponDamage(), gameObject);
             }
 
         }

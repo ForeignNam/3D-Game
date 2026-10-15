@@ -7,10 +7,11 @@ public class BaseStats : MonoBehaviour
     [SerializeField] private int startinglevel = 1;
     [SerializeField] private CharacterClass characterClass;
     [SerializeField] private Progression progression = null;
+    
    
-    public float GetHealth()
+    public float GetStat(Stat stat)
     {
-        return progression.GetHealth(characterClass,startinglevel);
+        return progression.GetStats(stat,characterClass,startinglevel);
     }
     
 }

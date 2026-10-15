@@ -11,6 +11,7 @@ namespace RPG.Combat
         
         [SerializeField] private float damage;
         [SerializeField] private bool isHoming = false ;
+        private GameObject instigator = null;
         private void Awake()
         {
             Rigidbody projectileRigidbody = GetComponent<Rigidbody>();
@@ -42,11 +43,11 @@ namespace RPG.Combat
             }
         }
 
-        public void SetTarget(Health target, float damage)
+        public void SetTarget(Health target, float damage, GameObject instigator)
         {
             this.target = target;
             this.damage = damage;
-
+            this.instigator = instigator;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -62,7 +63,7 @@ namespace RPG.Combat
                     impactInstance.AddComponent<Destroybullet>();
                 }
             }
-            hitHealth.TakeDamage(damage);
+            hitHealth.TakeDamage(damage,instigator);
             Destroy(gameObject); 
         }
 
