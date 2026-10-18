@@ -9,7 +9,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{EF76EE08-C0C2-5A69-57B6-9F9DB774C7DF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -66,11 +67,14 @@
     <Compile Include="Assets\Scripts\Saving\ISaveable.cs" />
     <Compile Include="Assets\Scripts\Cinematics\CinematicTrigger.cs" />
     <Compile Include="Assets\Scripts\Combat\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Stats\Stats.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\Fade.cs" />
     <Compile Include="Assets\Scripts\Stats\Progression.cs" />
     <Compile Include="Assets\Scripts\Movement\Movers.cs" />
     <Compile Include="Assets\Scripts\Core\PersistentObjectSpawner.cs" />
+    <Compile Include="Assets\Scripts\Stats\ExperienceDisplay.cs" />
     <Compile Include="Assets\Scripts\Combat\Pickup.cs" />
+    <Compile Include="Assets\Scripts\Stats\Experience.cs" />
     <Compile Include="Assets\Scripts\Combat\Fighter.cs" />
     <Compile Include="Assets\Scripts\Control\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Control\PatrolPath.cs" />
@@ -81,6 +85,7 @@
     <Compile Include="Assets\Scripts\Attributes\DisplayHealth.cs" />
     <Compile Include="Assets\Scripts\Saving\SerializableVector3.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\Portal.cs" />
+    <Compile Include="Assets\Scripts\Stats\LevelDisplay.cs" />
     <Compile Include="Assets\Scripts\Saving\SavingSystem.cs" />
     <Compile Include="Assets\Scripts\Combat\CombatTarget.cs" />
     <Compile Include="Assets\Scripts\Stats\BaseStats.cs" />

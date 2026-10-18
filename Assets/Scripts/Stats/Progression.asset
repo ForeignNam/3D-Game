@@ -14,19 +14,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.::RPG.Stats.Progression
   characterClass:
   - characterClass: 0
-    health:
-    - 100
-    - 200
-    - 300
-    - 400
-    - 500
+    progressionStat:
+    - stat: 0
+      levelupgrade:
+      - 300
+      - 60
+    - stat: 2
+      levelupgrade:
+      - 10
+      - 50
+      - 100
+      - 150
+    - stat: 1
+      levelupgrade:
+      - 10
+      - 20
   - characterClass: 1
-    health:
-    - 50
-    - 100
-    - 150
+    progressionStat:
+    - stat: 0
+      levelupgrade:
+      - 40
+      - 55
+    - stat: 1
+      levelupgrade:
+      - 15
+      - 39
   - characterClass: 2
-    health:
-    - 40
-    - 100
-    - 150
+    progressionStat:
+    - stat: 0
+      levelupgrade:
+      - 15
+      - 40
+    - stat: 1
+      levelupgrade:
+      - 20
+      - 25
