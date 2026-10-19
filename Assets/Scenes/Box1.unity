@@ -1232,6 +1232,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &561555437 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4893971647546796327, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
+  m_PrefabInstance: {fileID: 877014588117736936}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &561555441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561555437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9410ecc51c514e26a6d76f4d0f7ff0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.::RPG.Attributes.ExperienceDisplay
 --- !u!1001 &577948448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1606,6 +1623,10 @@ PrefabInstance:
       propertyPath: progression
       value: 
       objectReference: {fileID: 11400000, guid: 92a8bfc34474d44d19f3a4fc8f1a9478, type: 2}
+    - target: {fileID: 1545862983420934833, guid: 90ca5106f1381472c984e6f9d0e28192, type: 3}
+      propertyPath: startinglevel
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2197158789898491191, guid: 90ca5106f1381472c984e6f9d0e28192, type: 3}
       propertyPath: maxSpeed
       value: 5
@@ -2836,6 +2857,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfdd891e85974aa58db13c98a627bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.::RPG.Control.PatrolPath
+--- !u!1 &1573992060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2395803524168108060, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
+  m_PrefabInstance: {fileID: 877014588117736936}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1573992064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573992060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 304a1f2709c8843b1a104a3d4cff2166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.::RPG.Attributes.DisplayHealth
 --- !u!1 &1588995549
 GameObject:
   m_ObjectHideFlags: 0
@@ -3954,6 +3992,24 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e49d63136e474df1af7bc6b544280f4, type: 3}
+--- !u!1 &2032122851 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 50041828731839395, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
+  m_PrefabInstance: {fileID: 877014588117736936}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2032122865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032122851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe307a5a79e0d4dc89def192e29dc06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.::RPG.Attributes.Experience
+  experiencePoints: 0
 --- !u!1001 &2038078173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4389,6 +4445,10 @@ PrefabInstance:
       propertyPath: progression
       value: 
       objectReference: {fileID: 11400000, guid: 92a8bfc34474d44d19f3a4fc8f1a9478, type: 2}
+    - target: {fileID: 1823855976858011681, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
+      propertyPath: startinglevel
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2416443104761519486, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
       propertyPath: m_Name
       value: Core
@@ -4549,6 +4609,10 @@ PrefabInstance:
       propertyPath: rightHandTransform
       value: 
       objectReference: {fileID: 1880004579}
+    - target: {fileID: 6260089608318013550, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6894890787054273352, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
       propertyPath: m_IsKinematic
       value: 1
@@ -4630,9 +4694,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2416443104761519486, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 917700002}
+    - targetCorrespondingSourceObject: {fileID: 50041828731839395, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2032122865}
     - targetCorrespondingSourceObject: {fileID: 7651509639179642477, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1385411388}
+    - targetCorrespondingSourceObject: {fileID: 2395803524168108060, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1573992064}
+    - targetCorrespondingSourceObject: {fileID: 4893971647546796327, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 561555441}
   m_SourcePrefab: {fileID: 100100000, guid: 5313ce2480b434650b654788ce2de2d5, type: 3}
 --- !u!1001 &6040142175812657709
 PrefabInstance:
