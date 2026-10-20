@@ -1,28 +1,40 @@
 using UnityEngine;
+using System.Collections.Generic;
 namespace RPG.Stats
 {
 [CreateAssetMenu(fileName = "Progression", menuName = "Scriptable Objects/Progression")]
 public class Progression : ScriptableObject
 {
     [SerializeField]private CharacterProgression[] characterClass;
-
-    public float GetStats(Stat stat, CharacterClass targetClass, int level)
+    Dictionary<CharacterClass, Dictionary<Stat, float[]>> lookupTable = null;
+        public float GetStats(Stat stat, CharacterClass targetClass, int level)
+        {
+            BuildLookup();
+            float[] levels = lookupTable[targetClass][stat];
+            if(levels.Length < level) return 0;
+            return levels[level-1];
+   
+        }
+    private void BuildLookup()
     {
+        if(lookupTable != null) return;
+        lookupTable = new Dictionary<CharacterClass, Dictionary<Stat, float[]>>();
         foreach(CharacterProgression progression in characterClass)
         {
-            if(progression.characterClass == targetClass)
+            var statLookupTable = new Dictionary<Stat, float[]>();
+            foreach(ProgressionStat progressionStat in progression.progressionStat)
             {
-                foreach(ProgressionStat progressionStat in progression.progressionStat)
-                {
-                   if(progressionStat.stat != stat) continue;
-                   if(progressionStat.levelupgrade.Length < level) continue;
-                   return progressionStat.levelupgrade[level-1]; 
-                }
+                statLookupTable[progressionStat.stat] = progressionStat.levelupgrade;
             }
+            lookupTable[progression.characterClass] = statLookupTable;
         }
-        return 0;
     }
-    
+    public int GetLevelLength(CharacterClass characterclass,Stat stat)
+        {
+            BuildLookup();
+            float[] levels = lookupTable[characterclass][stat];
+           return levels.Length;
+        }
     [System.Serializable]
     public class CharacterProgression
     { 
