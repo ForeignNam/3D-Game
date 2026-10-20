@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Movement\Movers.cs" />
     <Compile Include="Assets\Scripts\Core\PersistentObjectSpawner.cs" />
     <Compile Include="Assets\Scripts\Stats\ExperienceDisplay.cs" />
+    <Compile Include="Assets\Scripts\Core\IRaycastable.cs" />
     <Compile Include="Assets\Scripts\Combat\Pickup.cs" />
     <Compile Include="Assets\Scripts\Stats\Experience.cs" />
     <Compile Include="Assets\Scripts\Combat\Fighter.cs" />

@@ -97,6 +97,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: b12805c0635b94e7ba1b3d01a9d81a7e, type: 2}
     - target: {fileID: -8634482120840086842, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
+      propertyPath: defaultweapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 994499acdd7154131921259b0c21b38b, type: 2}
+    - target: {fileID: -8634482120840086842, guid: 807e83ac9b891ee43b7f3619a8936223, type: 3}
       propertyPath: leftHandTransform
       value: 
       objectReference: {fileID: 1007879439810476451}
@@ -193,6 +197,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4ed119e5244402d9faf485d400757e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.::RPG.Control.PlayerController
+  cursorMappings:
+  - type: 0
+    texture: {fileID: 2800000, guid: 44a99ee545fd8ba46a452b12c1f9378b, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 1
+    texture: {fileID: 2800000, guid: b017dfab3916c1342b99c499d7ab500b, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 2
+    texture: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48, type: 3}
+    hotspot: {x: 0, y: 0}
 --- !u!114 &8781175747330416881
 MonoBehaviour:
   m_ObjectHideFlags: 0

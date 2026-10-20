@@ -10,7 +10,22 @@ namespace RPG.Control
         private Fighter fighter;
         private Movers movers;
         private Health health;
+        enum CursorType
+        {
+            None,
+            Movement,
+            Combat,
+            UI
+        }
+        [System.Serializable]
+        struct CursorMapping
+        {
+            public CursorType type;
+            public Texture2D texture;
+            public Vector2 hotspot;
 
+        }
+        [SerializeField] CursorMapping[] cursorMappings = null;
         private void Awake()
         {
             CacheComponents();
@@ -38,18 +53,33 @@ namespace RPG.Control
 
         private void Update()
         {
+            if(InteractWithUI()) return;
             if (movers == null || fighter == null || health == null)
             {
                 CacheComponents();
                 if (!enabled) return;
             }
 
-            if(health.Dead()) return;
-          if(InteractWithCombat()) return;
+            if (health.Dead())
+            {
+                SetCursor(CursorType.None);
+                return;
+            }
+                if (InteractWithCombat()) return;
           if(InteractWithMouse()) return;
-       
+        
 
 
+        }
+        private bool InteractWithUI()
+        {
+            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            {
+                SetCursor(CursorType.UI);
+                return true;
+            }
+            return false;
+            ;
         }
          private bool InteractWithCombat()
         {
@@ -71,6 +101,7 @@ namespace RPG.Control
                 {
                     fighter.Attack(target.gameObject);
                 }
+                SetCursor(CursorType.Combat);
                 return true;
             }
             return false;
@@ -88,7 +119,7 @@ namespace RPG.Control
                       GetComponent<Fighter>().Cancel();
                       movers.MoveTo(hit.point, 1f);
                   }
-                
+                SetCursor(CursorType.Movement);
                 return true;
 
             }
@@ -99,6 +130,22 @@ namespace RPG.Control
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
+        private void SetCursor(CursorType type)
+        {
+         CursorMapping mapping = GetCursorMapping(type);
+            Cursor.SetCursor(mapping.texture, mapping.hotspot, CursorMode.Auto);
 
+        }
+       private CursorMapping GetCursorMapping(CursorType type)
+        {
+            foreach (CursorMapping mapping in cursorMappings)
+            {
+                if (mapping.type == type)
+                {
+                    return mapping;
+                }
+            }
+            return cursorMappings[0];
+        }   
     }
 }
