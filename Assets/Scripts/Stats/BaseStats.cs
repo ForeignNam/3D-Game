@@ -13,13 +13,25 @@ namespace RPG.Stats
         {
             if (gameObject.CompareTag("Player"))
             {
-                print(GetLevel());
+                //print(GetLevel());
             }
                 
         }
         public float GetStat(Stat stat)
         {
-            return progression.GetStats(stat, characterClass, startinglevel);
+            return progression.GetStats(stat, characterClass, startinglevel) + GetAdditiveModifier(stat) ;
+        }
+          public float GetAdditiveModifier(Stat stat)
+        {
+            float total = 0;
+           foreach (IModifierProvider provider in GetComponents<IModifierProvider>())
+            {
+                foreach (float modifier in provider.GetAdditiveModifier(stat))
+                {
+                    total += modifier;
+                }
+            }
+            return total;
         }
 
         public int GetLevel()

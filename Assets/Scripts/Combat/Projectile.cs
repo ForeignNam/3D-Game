@@ -1,5 +1,6 @@
 using UnityEngine;
 using RPG.Core;
+using UnityEngine.Events;
 namespace RPG.Combat
 {
     public class Projectile : MonoBehaviour
@@ -11,6 +12,8 @@ namespace RPG.Combat
         
         [SerializeField] private float damage;
         [SerializeField] private bool isHoming = false ;
+        [SerializeField] UnityEvent onHit;
+        [SerializeField] private float lifeAfterImpact = 2f;
         private GameObject instigator = null;
         private void Awake()
         {
@@ -54,7 +57,8 @@ namespace RPG.Combat
         {
             Health hitHealth = other.GetComponentInParent<Health>();
             if (hitHealth == null || hitHealth != target) return;
-            if(target.Dead()) return;   
+            if(target.Dead()) return; 
+            onHit.Invoke();  
             if (impactFX != null)
             {
                 GameObject impactInstance = Instantiate(impactFX, GetlocationTarget(), Quaternion.identity);
@@ -64,7 +68,12 @@ namespace RPG.Combat
                 }
             }
             hitHealth.TakeDamage(damage,instigator);
-            Destroy(gameObject); 
+            // Không Destroy ngay, nếu không AudioSource trên projectile sẽ bị tắt tiếng
+            speed = 0;
+            target = null;
+            foreach (Collider c in GetComponentsInChildren<Collider>()) c.enabled = false;
+            foreach (Renderer r in GetComponentsInChildren<Renderer>()) r.enabled = false;
+            Destroy(gameObject, lifeAfterImpact); 
         }
 
         private Vector3 GetlocationTarget()

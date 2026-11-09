@@ -17,5 +17,6 @@ public class ExperienceDisplay : MonoBehaviour
         {
             experienceText.text = Mathf.CeilToInt(playerExperience.GetExperience()).ToString();
         }
+
 }
 }

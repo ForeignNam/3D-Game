@@ -28,7 +28,7 @@ namespace RPG.Attributes
 
         private void Update()
         {
-            healthplayerText.text = Mathf.CeilToInt(playerHealth.GetHealthPoints()).ToString();
+            healthplayerText.text = Mathf.CeilToInt(playerHealth.GetPercentage()).ToString();
         }
     }
 }

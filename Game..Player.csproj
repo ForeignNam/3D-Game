@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\SceneManagement\SavingWapper.cs" />
     <Compile Include="Assets\Scripts\Attributes\DisplayHealth.cs" />
     <Compile Include="Assets\Scripts\Saving\SerializableVector3.cs" />
+    <Compile Include="Assets\Scripts\Control\CursorType.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\Portal.cs" />
     <Compile Include="Assets\Scripts\Stats\LevelDisplay.cs" />
     <Compile Include="Assets\Scripts\Saving\SavingSystem.cs" />

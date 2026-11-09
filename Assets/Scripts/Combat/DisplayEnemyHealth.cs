@@ -30,7 +30,7 @@ namespace RPG.Combat
             }
 
             // Nếu có mục tiêu, hiển thị máu của mục tiêu đó
-            healthEnemyText.text = Mathf.CeilToInt(enemyHealth.GetHealthPoints()).ToString();
+            healthEnemyText.text = Mathf.CeilToInt(enemyHealth.GetPercentage()).ToString();
         }
     }
 }

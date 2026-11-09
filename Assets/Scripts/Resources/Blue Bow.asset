@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.::RPG.Combat.Weapon
   weaponRange: 10
   weaponDamage: 10
-  weaponPrefab: {fileID: 6015500773009722325, guid: 2d95c8095b9084b099dc8035c6614a70, type: 3}
+  weaponPrefab: {fileID: 2274402747013776617, guid: 2d95c8095b9084b099dc8035c6614a70, type: 3}
   weaponanimation: {fileID: 22100000, guid: 233607d341e784d8b88569e191362e99, type: 2}
   isRightHand: 0
   projectile: {fileID: 3545839788537821943, guid: 08eb916adcfdb6f4fa12ed1e7f806d9f, type: 3}

@@ -3,9 +3,11 @@ using UnityEngine.Serialization;
 using RPG.Movement;
 using RPG.Core;
 using RPG.Saving;
+using RPG.Stats;
+using System.Collections.Generic;
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable
+    public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider
     {
         
         
@@ -17,7 +19,7 @@ namespace RPG.Combat
         private Animator anim;
 
         [FormerlySerializedAs("weapon")]
-        [SerializeField] private Weapon defaultweapon = null;
+        [SerializeField] private WeaponConfig  defaultweapon = null;
         [SerializeField] private Transform rightHandTransform = null;
         [SerializeField] private Transform leftHandTransform = null;
 
@@ -49,7 +51,7 @@ namespace RPG.Combat
             }
 
         }
-        public void EquipWeapon(Weapon currentWeapon)
+        public void EquipWeapon(WeaponConfig currentWeapon)
         {
             if (currentWeapon == null)
             {
@@ -74,7 +76,7 @@ namespace RPG.Combat
             string weaponName = state as string;
             if (string.IsNullOrWhiteSpace(weaponName)) return;
 
-            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            WeaponConfig weapon = Resources.Load<WeaponConfig>(weaponName);
             if (weapon == null)
             {
                 Debug.LogWarning(
@@ -143,6 +145,13 @@ namespace RPG.Combat
             anim.ResetTrigger("attack");
             anim.SetTrigger("stopAttack");
 
+        }
+        public IEnumerable<float> GetAdditiveModifier(Stat stat)
+        {
+           if(stat == Stat.Damage)
+            {
+                yield return defaultweapon.GetWeaponDamage();
+            }
         }
     }
 }

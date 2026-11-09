@@ -2,6 +2,7 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
 using RPG.Core;
+using UnityEngine.AI;
 namespace RPG.Control
 {
     [RequireComponent(typeof(Fighter), typeof(Movers), typeof(Health))]
@@ -10,13 +11,7 @@ namespace RPG.Control
         private Fighter fighter;
         private Movers movers;
         private Health health;
-        enum CursorType
-        {
-            None,
-            Movement,
-            Combat,
-            UI
-        }
+     
         [System.Serializable]
         struct CursorMapping
         {
@@ -26,6 +21,8 @@ namespace RPG.Control
 
         }
         [SerializeField] CursorMapping[] cursorMappings = null;
+        [SerializeField] private float maxNavMeshProjectionDistance = 1f;
+        [SerializeField] private float maxNavMeshPathDistance = 40f;
         private void Awake()
         {
             CacheComponents();
@@ -65,9 +62,11 @@ namespace RPG.Control
                 SetCursor(CursorType.None);
                 return;
             }
-                if (InteractWithCombat()) return;
-          if(InteractWithMouse()) return;
-        
+          if (InteractWithCombat()) return;
+          if (InteractwithComponent()) return;
+          if (InteractWithMouse()) return;
+          SetCursor(CursorType.None);
+
 
 
         }
@@ -106,18 +105,65 @@ namespace RPG.Control
             }
             return false;
         }
-         
-
-        private bool InteractWithMouse()
-        {                  
+        public bool InteractwithComponent()
+        {
+            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+            foreach (RaycastHit hit in hits)
+            {
+                IRaycastable[] raycastable = hit.transform.GetComponents<IRaycastable>();
+                foreach(IRaycastable iraycastable in raycastable)
+                {
+                    if(iraycastable.HandleRaycast(this))
+                    {
+                        SetCursor(iraycastable.GetCursorType());
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        private bool RaycastNavMesh(out Vector3 target)
+        {
+            target = new Vector3();
             RaycastHit hit;
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
+            if (!hasHit) return false;
+            NavMeshHit navMeshHit;
+            bool hasCastToNavMesh = NavMesh.SamplePosition(hit.point, out navMeshHit,
+             maxNavMeshProjectionDistance, NavMesh.AllAreas);
+             if (!hasCastToNavMesh) return false;
+            target = navMeshHit.position;
+
+            NavMeshPath path = new NavMeshPath();
+            bool hasPath = NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
+            if (!hasPath) return false;
+            if (path.status != NavMeshPathStatus.PathComplete) return false;
+            if(GetNavMeshPathLength(path) > maxNavMeshPathDistance) return false;
+            return true;
+        }
+        private float GetNavMeshPathLength(NavMeshPath path)
+        {
+            float total = 0;
+            if (path.corners.Length < 2) return total;
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                total += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+            }
+            return total;
+        }
+        private bool InteractWithMouse()
+        {                  
+            //RaycastHit hit;
+            //bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
+            Vector3 target;
+            bool hasHit = RaycastNavMesh(out target);
+            if (!hasHit) return false;
             if (hasHit)
             {
                   if (Input.GetMouseButton(0))
                   {
                       GetComponent<Fighter>().Cancel();
-                      movers.MoveTo(hit.point, 1f);
+                      movers.MoveTo(target, 1f);
                   }
                 SetCursor(CursorType.Movement);
                 return true;
@@ -132,7 +178,7 @@ namespace RPG.Control
         }
         private void SetCursor(CursorType type)
         {
-         CursorMapping mapping = GetCursorMapping(type);
+            CursorMapping mapping = GetCursorMapping(type);
             Cursor.SetCursor(mapping.texture, mapping.hotspot, CursorMode.Auto);
 
         }

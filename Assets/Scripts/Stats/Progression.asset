@@ -17,35 +17,48 @@ MonoBehaviour:
     progressionStat:
     - stat: 0
       levelupgrade:
-      - 300
-      - 60
+      - 5
+      - 6
+      - 7
     - stat: 2
       levelupgrade:
-      - 10
+      - 40
       - 50
-      - 100
-      - 150
     - stat: 1
-      levelupgrade:
-      - 10
-      - 20
-  - characterClass: 1
-    progressionStat:
-    - stat: 0
       levelupgrade:
       - 40
-      - 55
-    - stat: 1
+      - 50
+    - stat: 3
       levelupgrade:
-      - 15
-      - 39
+      - 40
+      - 50
   - characterClass: 2
     progressionStat:
     - stat: 0
       levelupgrade:
-      - 15
+      - 20
       - 40
+    - stat: 2
+      levelupgrade:
+      - 30
+      - 50
     - stat: 1
       levelupgrade:
-      - 20
-      - 25
+      - 30
+      - 50
+  - characterClass: 1
+    progressionStat:
+    - stat: 0
+      levelupgrade:
+      - 10
+      - 15
+    - stat: 2
+      levelupgrade:
+      - 70
+      - 140
+      - 140
+    - stat: 1
+      levelupgrade:
+      - 70
+      - 140
+      - 140

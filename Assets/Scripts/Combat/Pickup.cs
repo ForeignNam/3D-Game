@@ -4,9 +4,9 @@ using System.Collections;
 using RPG.Control;
 namespace RPG.Combat
 {
-public class Pickup : MonoBehaviour
-{
-   [SerializeField] private Weapon weapon = null;
+public class Pickup : MonoBehaviour, IRaycastable
+    {
+   [SerializeField] private WeaponConfig weapon = null;
    [SerializeField] private float timetohide = 5f;
    
     private void OnTriggerEnter(Collider other)
@@ -44,6 +44,11 @@ public class Pickup : MonoBehaviour
             }
             return true;
         }
-
+      public CursorType GetCursorType()
+        {
+            Debug.Log("CursorType.Pickup");
+            return CursorType.Pickup;
+        }
+  
     }
 }

@@ -130,15 +130,17 @@ namespace RPG.SceneManagement
                     $"No NavMesh was found within {navMeshSearchDistance}m of " +
                     $"spawn point '{otherPortal.spawnPoints.name}'.",
                     otherPortal.spawnPoints);
-                return false;
             }
-
-            destination = hit.position;
+            else
+            {
+                destination = hit.position;
+            }
             if (agent != null)
             {
                 agent.enabled = false;
             }
 
+            Debug.Log($"[Portal] Dest portal '{otherPortal.name}' ({otherPortal.destinationIdentifier}) in scene '{otherPortal.gameObject.scene.name}' at {otherPortal.transform.position} | Spawn '{otherPortal.spawnPoints.name}' (scene '{otherPortal.spawnPoints.gameObject.scene.name}') at {otherPortal.spawnPoints.position} -> player moved to {destination}", otherPortal.spawnPoints);
             player.transform.SetPositionAndRotation(
                 destination,
                 otherPortal.spawnPoints.rotation);
@@ -146,7 +148,7 @@ namespace RPG.SceneManagement
             if (agent != null)
             {
                 agent.enabled = true;
-                agent.ResetPath();
+                if (agent.isOnNavMesh) agent.ResetPath();
             }
 
             return true;
